@@ -27,7 +27,7 @@ public class Main {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint("jhotdraw-sapmles-svg main")
+    @FeatureEntryPoint(value = "jhotdraw-sapmles-svg main")
     public static void main(String[] args) {
         // Debug resource bundle
         ResourceBundleUtil.setVerbose(true);
