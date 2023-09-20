@@ -6,4 +6,4 @@ nb-configuration.xml
 *.ftf
 /jhotdraw-samples/jhotdraw-samples-misc/nbproject/
 
-jhotdraw-samples/jhotdraw-samples-misc/pom.xml
+/jhotdraw-samples/jhotdraw-samples-misc/pom.xml
