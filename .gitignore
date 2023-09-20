@@ -6,4 +6,7 @@ nb-configuration.xml
 *.ftf
 /jhotdraw-samples/jhotdraw-samples-misc/nbproject/
 
-*/pom.xml
+# Gitignore file I just removed comment
+jhotdraw-samples/jhotdraw-samples-misc/pom.xml
+
+*.xml
