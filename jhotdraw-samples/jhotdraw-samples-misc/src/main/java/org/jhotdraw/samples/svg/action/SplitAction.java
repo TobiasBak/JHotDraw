@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.samples.svg.figures.SVGPathFigure;
 import org.jhotdraw.util.ResourceBundleUtil;
@@ -27,6 +28,7 @@ public class SplitAction extends CombineAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "Split Action")
     public SplitAction(DrawingEditor editor) {
         super(editor, new SVGPathFigure(), false);
         labels.configureAction(this, ID);
