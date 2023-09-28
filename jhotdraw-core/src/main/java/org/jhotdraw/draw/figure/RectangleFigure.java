@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.geom.Geom;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 
 /**
  * A {@link Figure} with a rectangular shape.
@@ -26,10 +27,12 @@ public class RectangleFigure extends AbstractAttributedFigure {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint("RectangleTool")
     public RectangleFigure() {
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint("RectangleTool")
     public RectangleFigure(double x, double y, double width, double height) {
         rectangle = new Rectangle2D.Double(x, y, width, height);
     }
