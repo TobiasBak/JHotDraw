@@ -9,6 +9,8 @@ package org.jhotdraw.draw.figure;
 
 import java.awt.*;
 import java.awt.geom.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.connector.ChopEllipseConnector;
 import org.jhotdraw.draw.connector.Connector;
@@ -29,6 +31,7 @@ public class EllipseFigure extends AbstractAttributedFigure {
      * Constructs a new {@code EllipseFigure}, initialized to
      * location (0,&nbsp;0) and size (0,&nbsp;0).
      */
+    @FeatureEntryPoint("EllipseTool")
     public EllipseFigure() {
         this(0, 0, 0, 0);
     }
@@ -42,6 +45,7 @@ public class EllipseFigure extends AbstractAttributedFigure {
      * @param width the width of the rectangle
      * @param height the height of the rectangle
      */
+    @FeatureEntryPoint("EllipseTool")
     public EllipseFigure(double x, double y, double width, double height) {
         ellipse = new Ellipse2D.Double(x, y, width, height);
     }
