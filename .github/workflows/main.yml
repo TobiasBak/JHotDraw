@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build and test with maven
-        run: mvn -s .maven-settings.xml --batch-mode --update-snapshots verify
+        run: mvn -s maven-settings.xml --batch-mode --update-snapshots verify
         env:
             SECRET_USERNAME: ${{ secrets.SECRET_USERNAME }}
             SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
