@@ -21,40 +21,26 @@ jobs:
     runs-on: ubuntu-latest
     container: maven:3.6.3-openjdk-11-slim
 
-    permissions:
-      contents: read
-      pull-requests: write
+    permissions: read-all
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
       # Sets up maven settings.xml file
-      - name: configure maven
-        uses: s4u/maven-settings-action@v2.2.0
+      - name: maven-settings-xml-action
+        uses: s4u/maven-settings-action@v2.8.0
         with:
-          servers: |
-            [{
-                "id": "github",
-                "username": "TobiasBak",
-                "password": "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"
-            }]
+#          repositories: '[{ "id": "central", "url": "https://repo1.maven.org/maven2" },
+#           {
+#             "id": "github",
+#             "url": "https://maven.pkg.github.com/sweat-tek/MavenRepository",
+#             "snapshots": {
+#                "enabled": "true"
+#              }
+#          }]'
 
-#      - name: maven-settings-xml-action
-#        uses: s4u/maven-settings-action@v2.8.0
-#        with:
-##          repositories: '[{ "id": "central", "url": "https://repo1.maven.org/maven2" },
-##           {
-##             "id": "github",
-##             "url": "https://maven.pkg.github.com/sweat-tek/MavenRepository",
-##             "snapshots": {
-##                "enabled": "true"
-##              }
-##          }]'
-#          servers: '[{ "id": "github", "username": "TobiasBak", "password": "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" }]'
-#
-#          #servers: '[
-#                    #{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
+          servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
 
 
 
