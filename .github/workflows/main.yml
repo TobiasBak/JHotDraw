@@ -31,7 +31,7 @@ jobs:
 
       # Sets up maven settings.xml file
       - name: maven-settings-xml-action
-        uses: whelk-io/maven-settings-xml-action@v20
+        uses: s4u/maven-settings-actiom@v2.8.0
         with:
           repositories: '[{ "id": "central", "url": "https://repo1.maven.org/maven2" },
            { 
@@ -41,8 +41,8 @@ jobs:
                 "enabled": "true"
               }
           }]'
-          #servers: '[{ "id": "github", "username": "TobiasBak", "password": "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" }]'
-          servers: '[
+          servers: '[{ "id": "github", "username": "TobiasBak", "password": "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" }]'
+          #servers: '[
                     {"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
 
       # Builds maven project
