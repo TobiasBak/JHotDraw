@@ -31,7 +31,7 @@ jobs:
 
       # Sets up maven settings.xml file
       - name: maven-settings-xml-action
-        uses: s4u/maven-settings-actiom@v2.8.0
+        uses: s4u/maven-settings-action@v2.8.0
         with:
 #          repositories: '[{ "id": "central", "url": "https://repo1.maven.org/maven2" },
 #           {
