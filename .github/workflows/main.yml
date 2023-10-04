@@ -27,23 +27,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Sets up maven settings.xml file
-#      - name: maven-settings-xml-action
-#        uses: s4u/maven-settings-action@v2.8.0
-#        with:
-##          repositories: '[{ "id": "central", "url": "https://repo1.maven.org/maven2" },
-##           {
-##             "id": "github",
-##             "url": "https://maven.pkg.github.com/sweat-tek/MavenRepository",
-##             "snapshots": {
-##                "enabled": "true"
-##              }
-##          }]'
-#
-#          servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
-
-
-
+      - name: Build and test with maven
+        run: mvn -s .maven-settings.xml --batch-mode --update-snapshots verify
+        env:
+            SECRET_USERNAME: ${{ secrets.SECRET_USERNAME }}
+            SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
 
       # Builds maven project
       - name: Build with Maven
@@ -51,7 +39,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/checkout@v3
       - name: Test with Maven
