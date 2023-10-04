@@ -41,7 +41,9 @@ jobs:
                 "enabled": "true"
               }
           }]'
-          servers: '[{ "id": "github", "username": "TobiasBak", "password": "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" }]'
+          #servers: '[{ "id": "github", "username": "TobiasBak", "password": "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" }]'
+          servers: '[
+                    {"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
 
       # Builds maven project
       - name: Build with Maven
