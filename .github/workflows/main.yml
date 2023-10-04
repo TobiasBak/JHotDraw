@@ -21,8 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     container: maven:3.6.3-openjdk-11-slim
 
-    permissions: read-all
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -30,5 +28,5 @@ jobs:
       - name: Build and test with maven
         run: mvn -s maven-settings.xml --batch-mode --update-snapshots verify
         env:
-            SECRET_USERNAME: ${{ secrets.SECRET_USERNAME }}
+            SECRET_USERNAME: ${{ secrets.USER_NAME }}
             SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
