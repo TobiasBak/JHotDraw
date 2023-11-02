@@ -32,7 +32,7 @@ public class CombineAction extends AbstractSelectedAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.combinePaths";
-    private CompositeFigure prototype;
+    public CompositeFigure prototype;
     /**
      * If this variable is true, this action groups figures.
      * If this variable is false, this action ungroups figures.
@@ -234,9 +234,7 @@ public class CombineAction extends AbstractSelectedAction {
                 break;
             }
         }
-        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
-            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
-        }
+        addingFiguresToGroup(group, figures);
         // In case all figures have the same transforms, we set it here.
         // In case the transforms are different, we set null here.
         group.set(TRANSFORM, tx);
@@ -256,5 +254,11 @@ public class CombineAction extends AbstractSelectedAction {
         }
         group.changed();
         view.addToSelection(group);
+    }
+
+    public static void addingFiguresToGroup(CompositeFigure group, Collection<Figure> figures) {
+        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
+            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
+        }
     }
 }

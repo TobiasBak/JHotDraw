@@ -1,0 +1,92 @@
+{
+  "className": "org.jhotdraw.samples.svg.GroupingFiguresTest",
+  "name": "Grouping Figures",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.GroupingFiguresTest",
+      "testMethodName": "testGrouping",
+      "description": "Test grouping",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "an ellipse",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an ellipse"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 289825100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "an rectangle",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an rectangle"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 3824400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figures are grouped",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figures are grouped"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 508100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "some outcome",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "some outcome"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 499400,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 328213700
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 328213700
+    }
+  ],
+  "tagMap": {}
+}
