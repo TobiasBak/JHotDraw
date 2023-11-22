@@ -15,7 +15,5 @@ public class GroupingFiguresTest extends ScenarioTest<GivenFigures, WhenGrouping
         when().the_figures_are_selected().and().the_figures_are_grouped();
 
         then().some_outcome();
-
-
     }
 }

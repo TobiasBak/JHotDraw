@@ -4,6 +4,7 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 
 import com.tngtech.jgiven.annotation.ScenarioState;
+import org.jhotdraw.draw.DefaultDrawingEditor;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
 
@@ -16,13 +17,11 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import org.jhotdraw.samples.svg.action.CombineAction;
 import org.jhotdraw.samples.svg.figures.SVGPathFigure;
 
-
 import java.util.List;
 
 public class WhenGrouping extends Stage<WhenGrouping> {
-
     @ScenarioState
-    CombineAction combineAction;
+    CombineAction combineAction = new CombineAction(new DefaultDrawingEditor());
 
     @ExpectedScenarioState
     List<Figure> inputFigures;
@@ -38,8 +37,7 @@ public class WhenGrouping extends Stage<WhenGrouping> {
         assertThat(selectedFigures).isNotEmpty();
         group = (CompositeFigure) new SVGPathFigure(true);
         System.out.println("Grouping " + group);
-        CombineAction.addingFiguresToGroup(group, selectedFigures);
-
+        combineAction.addingFiguresToGroup(group, selectedFigures);
 
         return self();
     }

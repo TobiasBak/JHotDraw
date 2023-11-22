@@ -256,7 +256,7 @@ public class CombineAction extends AbstractSelectedAction {
         view.addToSelection(group);
     }
 
-    public static void addingFiguresToGroup(CompositeFigure group, Collection<Figure> figures) {
+    public void addingFiguresToGroup(CompositeFigure group, Collection<Figure> figures) {
         for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
             group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
         }
