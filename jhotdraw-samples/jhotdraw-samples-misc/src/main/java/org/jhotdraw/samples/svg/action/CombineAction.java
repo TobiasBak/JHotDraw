@@ -37,7 +37,6 @@ public class CombineAction extends AbstractSelectedAction {
      * If this variable is true, this action groups figures.
      * If this variable is false, this action ungroups figures.
      */
-    private boolean isCombineAction;
     private ResourceBundleUtil labels
             = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
 
@@ -46,17 +45,13 @@ public class CombineAction extends AbstractSelectedAction {
      */
     @FeatureEntryPoint(value = "Combine Action")
     public CombineAction(DrawingEditor editor) {
-        this(editor, new SVGPathFigure(true), true);
+        this(editor, new SVGPathFigure(true));
     }
 
-    public CombineAction(DrawingEditor editor, SVGPathFigure prototype) {
-        this(editor, prototype, true);
-    }
     @FeatureEntryPoint(value = "Combine Action")
-    public CombineAction(DrawingEditor editor, SVGPathFigure prototype, boolean isGroupingAction) {
+    public CombineAction(DrawingEditor editor, SVGPathFigure prototype) {
         super(editor);
         this.prototype = prototype;
-        this.isCombineAction = isGroupingAction;
         labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         labels.configureAction(this, ID);
         updateEnabledState();
@@ -65,7 +60,7 @@ public class CombineAction extends AbstractSelectedAction {
     @Override
     protected void updateEnabledState() {
         if (getView() != null) {
-            setEnabled(isCombineAction ? canGroup() : canUngroup());
+            setEnabled(canGroup());
         } else {
             setEnabled(false);
         }
@@ -84,22 +79,12 @@ public class CombineAction extends AbstractSelectedAction {
         return canCombine;
     }
 
-    protected boolean canUngroup() {
-        return getView() != null && getView().getSelectionCount() == 1
-                && prototype != null
-                && getView().getSelectedFigures().iterator().next().getClass().equals(
-                        prototype.getClass())
-                && ((CompositeFigure) getView().getSelectedFigures().iterator().next()).getChildCount() > 1;
-    }
     @FeatureEntryPoint(value = "Combine Action")
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
-        if (isCombineAction) {
-            combineActionPerformed(e);
-        } else {
-            splitActionPerformed(e);
-        }
+        combineActionPerformed(e);
     }
+
     @FeatureEntryPoint(value = "Combine Action")
     public void combineActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
@@ -148,51 +133,7 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @SuppressWarnings("unchecked")
-    @FeatureEntryPoint(value = "Combine Action")
-    public void splitActionPerformed(java.awt.event.ActionEvent e) {
-        final DrawingView view = getView();
-        Drawing drawing = view.getDrawing();
-        if (canUngroup()) {
-            final CompositeFigure group = (CompositeFigure) view.getSelectedFigures().iterator().next();
-            final LinkedList<Figure> ungroupedPaths = new LinkedList<Figure>();
-            final int[] ungroupedPathsIndices = new int[group.getChildCount()];
-            final int[] ungroupedPathsChildCounts = new int[group.getChildCount()];
-            int i = 0;
-            int index = drawing.indexOf(group);
-            for (Figure f : group.getChildren()) {
-                SVGPathFigure path = new SVGPathFigure(true);
-                for (Map.Entry<AttributeKey<?>, Object> entry : group.getAttributes().entrySet()) {
-                    path.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
-                }
-                ungroupedPaths.add(path);
-                ungroupedPathsIndices[i] = index + i;
-                ungroupedPathsChildCounts[i] = 1;
-                i++;
-            }
-            splitPath(view, group, ungroupedPaths, ungroupedPathsIndices, ungroupedPathsChildCounts);
-            UndoableEdit edit = new AbstractUndoableEdit() {
-                private static final long serialVersionUID = 1L;
 
-                @Override
-                public String getPresentationName() {
-                    return labels.getTextProperty("edit.splitPath");
-                }
-
-                @Override
-                public void redo() throws CannotRedoException {
-                    super.redo();
-                    splitPath(view, group, ungroupedPaths, ungroupedPathsIndices, ungroupedPathsChildCounts);
-                }
-
-                @Override
-                public void undo() throws CannotUndoException {
-                    super.undo();
-                    combinePaths(view, group, ungroupedPaths, ungroupedPathsIndices[0]);
-                }
-            };
-            fireUndoableEditHappened(edit);
-        }
-    }
 
     @FeatureEntryPoint(value = "Combine Action")
     public void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
@@ -234,7 +175,9 @@ public class CombineAction extends AbstractSelectedAction {
                 break;
             }
         }
-        addingFiguresToGroup(group, figures);
+        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
+            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
+        }
         // In case all figures have the same transforms, we set it here.
         // In case the transforms are different, we set null here.
         group.set(TRANSFORM, tx);
@@ -254,11 +197,5 @@ public class CombineAction extends AbstractSelectedAction {
         }
         group.changed();
         view.addToSelection(group);
-    }
-
-    public void addingFiguresToGroup(CompositeFigure group, Collection<Figure> figures) {
-        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
-            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
-        }
     }
 }
