@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import java.awt.geom.AffineTransform;
@@ -43,6 +44,7 @@ public class CombineAction extends AbstractSelectedAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "Combine Action")
     public CombineAction(DrawingEditor editor) {
         this(editor, new SVGPathFigure(true), true);
     }
@@ -50,7 +52,7 @@ public class CombineAction extends AbstractSelectedAction {
     public CombineAction(DrawingEditor editor, SVGPathFigure prototype) {
         this(editor, prototype, true);
     }
-
+    @FeatureEntryPoint(value = "Combine Action")
     public CombineAction(DrawingEditor editor, SVGPathFigure prototype, boolean isGroupingAction) {
         super(editor);
         this.prototype = prototype;
@@ -89,7 +91,7 @@ public class CombineAction extends AbstractSelectedAction {
                         prototype.getClass())
                 && ((CompositeFigure) getView().getSelectedFigures().iterator().next()).getChildCount() > 1;
     }
-
+    @FeatureEntryPoint(value = "Combine Action")
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (isCombineAction) {
@@ -98,7 +100,7 @@ public class CombineAction extends AbstractSelectedAction {
             splitActionPerformed(e);
         }
     }
-
+    @FeatureEntryPoint(value = "Combine Action")
     public void combineActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         Drawing drawing = view.getDrawing();
@@ -146,6 +148,7 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @SuppressWarnings("unchecked")
+    @FeatureEntryPoint(value = "Combine Action")
     public void splitActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         Drawing drawing = view.getDrawing();
@@ -191,6 +194,7 @@ public class CombineAction extends AbstractSelectedAction {
         }
     }
 
+    @FeatureEntryPoint(value = "Combine Action")
     public void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         view.clearSelection();
         Iterator<Figure> groupedFigures = new LinkedList<Figure>(group.getChildren()).iterator();
@@ -213,6 +217,7 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @SuppressWarnings("unchecked")
+    @FeatureEntryPoint(value = "Combine Action")
     public void combinePaths(DrawingView view, CompositeFigure group, Collection<Figure> figures, int groupIndex) {
         view.getDrawing().basicRemoveAll(figures);
         view.clearSelection();

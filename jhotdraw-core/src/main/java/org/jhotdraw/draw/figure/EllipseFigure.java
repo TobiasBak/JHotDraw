@@ -9,6 +9,7 @@ package org.jhotdraw.draw.figure;
 
 import java.awt.*;
 import java.awt.geom.*;
+
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.connector.ChopEllipseConnector;
 import org.jhotdraw.draw.connector.Connector;
