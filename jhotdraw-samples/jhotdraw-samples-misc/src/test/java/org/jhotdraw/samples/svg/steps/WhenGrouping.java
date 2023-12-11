@@ -9,11 +9,7 @@ import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
-
-
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import org.jhotdraw.samples.svg.action.commands.CombinePathsCommand;
