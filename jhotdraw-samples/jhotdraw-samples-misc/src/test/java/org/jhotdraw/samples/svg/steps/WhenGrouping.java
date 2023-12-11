@@ -37,7 +37,6 @@ public class WhenGrouping extends Stage<WhenGrouping> {
         assertThat(selectedFigures).isNotEmpty();
         group = (CompositeFigure) new SVGPathFigure(true);
         System.out.println("Grouping " + group);
-//        combineAction.addingFiguresToGroup(group, selectedFigures);
 
         return self();
     }

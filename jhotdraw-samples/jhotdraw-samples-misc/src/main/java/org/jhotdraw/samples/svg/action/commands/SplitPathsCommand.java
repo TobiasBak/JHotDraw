@@ -18,6 +18,13 @@ public class SplitPathsCommand implements PathCommand {
         Drawing drawing = view.getDrawing();
         final int[] ungroupedPathsIndices = new int[group.getChildCount()];
         final int[] ungroupedPathsChildCounts = new int[group.getChildCount()];
+
+        setUngroupedPathsAndAddPath(group, figures, drawing, ungroupedPathsIndices, ungroupedPathsChildCounts);
+
+        splitPath(view, group, figures, ungroupedPathsIndices, ungroupedPathsChildCounts);
+    }
+
+    private void setUngroupedPathsAndAddPath(CompositeFigure group, List<Figure> figures, Drawing drawing, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         int i = 0;
         int index = drawing.indexOf(group);
         for (Figure f : group.getChildren()) {
@@ -30,16 +37,24 @@ public class SplitPathsCommand implements PathCommand {
             ungroupedPathsChildCounts[i] = 1;
             i++;
         }
-        splitPath(view, group, figures, ungroupedPathsIndices, ungroupedPathsChildCounts);
     }
 
     public void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         view.clearSelection();
-        Iterator<Figure> groupedFigures = new LinkedList<Figure>(group.getChildren()).iterator();
         group.basicRemoveAllChildren();
         view.getDrawing().remove(group);
+
         SVGPathFigure pathFigure = (SVGPathFigure) group;
+
         pathFigure.flattenTransform();
+
+        addGroupedPathsToUngroupedPath(view, group, ungroupedPaths, ungroupedPathsIndices, ungroupedPathsChildCounts);
+
+        view.addToSelection(ungroupedPaths);
+    }
+
+    private void addGroupedPathsToUngroupedPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
+        Iterator<Figure> groupedFigures = new LinkedList<Figure>(group.getChildren()).iterator();
         for (int i = 0; i < ungroupedPaths.size(); i++) {
             CompositeFigure path = (CompositeFigure) ungroupedPaths.get(i);
             view.getDrawing().add(ungroupedPathsIndices[i], path);
@@ -51,6 +66,5 @@ public class SplitPathsCommand implements PathCommand {
             }
             path.changed();
         }
-        view.addToSelection(ungroupedPaths);
     }
 }

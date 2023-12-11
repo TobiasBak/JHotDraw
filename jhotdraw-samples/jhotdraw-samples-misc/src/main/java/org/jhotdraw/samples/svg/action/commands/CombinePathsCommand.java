@@ -27,8 +27,27 @@ public class CombinePathsCommand implements PathCommand {
         view.getDrawing().add(groupIndex, group);
         group.willChange();
         group.basicRemoveAllChildren();
-        // Verify if all figures have the same transform
+
         AffineTransform tx = figures.iterator().next().get(TRANSFORM);
+        verifyTransformsAreTheSame(figures, tx);
+
+        setAttributesOnGroupFigures(group, figures);
+
+        group.set(TRANSFORM, tx);
+
+        addChildrenToTheGroup(group, figures, tx);
+
+        group.changed();
+        view.addToSelection(group);
+    }
+
+    void setAttributesOnGroupFigures(CompositeFigure group, Collection<Figure> figures) {
+        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
+            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
+        }
+    }
+
+    void verifyTransformsAreTheSame(Collection<Figure> figures, AffineTransform tx) {
         for (Figure f : figures) {
             AffineTransform ftx = f.get(TRANSFORM);
             if (ftx == tx || ftx != null && tx != null && ftx.equals(tx)) {
@@ -37,12 +56,9 @@ public class CombinePathsCommand implements PathCommand {
                 break;
             }
         }
-        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
-            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
-        }
-        // In case all figures have the same transforms, we set it here.
-        // In case the transforms are different, we set null here.
-        group.set(TRANSFORM, tx);
+    }
+
+    void addChildrenToTheGroup (CompositeFigure group, Collection<Figure> figures, AffineTransform tx) {
         for (Figure f : figures) {
             SVGPathFigure path = (SVGPathFigure) f;
             // In case the transforms are different, we flatten it in the figures.
@@ -56,14 +72,6 @@ public class CombinePathsCommand implements PathCommand {
                 child.willChange();
                 group.basicAdd(child);
             }
-        }
-        group.changed();
-        view.addToSelection(group);
-    }
-
-    private void addingFiguresToGroup(CompositeFigure group, Collection<Figure> figures) {
-        for (Map.Entry<AttributeKey<?>, Object> entry : figures.iterator().next().getAttributes().entrySet()) {
-            group.set((AttributeKey<Object>) entry.getKey(), entry.getValue());
         }
     }
 }
