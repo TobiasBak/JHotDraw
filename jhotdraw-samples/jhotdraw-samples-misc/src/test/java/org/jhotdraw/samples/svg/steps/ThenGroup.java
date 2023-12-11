@@ -14,12 +14,6 @@ public class ThenGroup extends Stage<ThenGroup> {
 
         CompositeFigure group = (CompositeFigure) view.getDrawing().getChildren().iterator().next();
 
-        System.out.println("Group: " + group);
-        System.out.println("Group children figures: " + group.getChildren());
-        System.out.println("View drawing: " + view.getDrawing());
-        System.out.println("View drawing children: " + view.getDrawing().getChildren());
-        System.out.println("Child count: " + group.getChildCount());
-
         assert group.includes(view.getSelectedFigures().iterator().next());
 
         return self();
