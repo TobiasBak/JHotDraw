@@ -42,13 +42,11 @@ public class CombinePathsCommand implements PathCommand {
                 path.flattenTransform();
             }
             List<Figure> children = new LinkedList<Figure>(path.getChildren());
-            System.out.println("Children: " + children);
             path.basicRemoveAllChildren();
             for (Figure child : children) {
                 SVGBezierFigure bez = (SVGBezierFigure) child;
                 child.willChange();
                 group.basicAdd(child);
-                System.out.println("Child: " + child);
             }
         }
 
