@@ -10,10 +10,10 @@ public class GroupingFiguresTest extends ScenarioTest<GivenFigures, WhenGrouping
 
     @Test
     public void testGrouping() {
-        given().an_ellipse().and().an_rectangle();
+        given().a_figure().and().a_figure();
 
         when().the_figures_are_selected().and().the_figures_are_grouped();
 
-        then().some_outcome();
+        then().a_group_is_created();
     }
 }

@@ -35,7 +35,22 @@ public class CombinePathsCommand implements PathCommand {
 
         group.set(TRANSFORM, tx);
 
-        addChildrenToTheGroup(group, figures, tx);
+        for (Figure f : figures) {
+            SVGPathFigure path = (SVGPathFigure) f;
+            // In case the transforms are different, we flatten it in the figures.
+            if (tx == null) {
+                path.flattenTransform();
+            }
+            List<Figure> children = new LinkedList<Figure>(path.getChildren());
+            System.out.println("Children: " + children);
+            path.basicRemoveAllChildren();
+            for (Figure child : children) {
+                SVGBezierFigure bez = (SVGBezierFigure) child;
+                child.willChange();
+                group.basicAdd(child);
+                System.out.println("Child: " + child);
+            }
+        }
 
         group.changed();
         view.addToSelection(group);
@@ -66,11 +81,13 @@ public class CombinePathsCommand implements PathCommand {
                 path.flattenTransform();
             }
             List<Figure> children = new LinkedList<Figure>(path.getChildren());
+            System.out.println("Children: " + children);
             path.basicRemoveAllChildren();
             for (Figure child : children) {
                 SVGBezierFigure bez = (SVGBezierFigure) child;
                 child.willChange();
                 group.basicAdd(child);
+                System.out.println("Child: " + child);
             }
         }
     }

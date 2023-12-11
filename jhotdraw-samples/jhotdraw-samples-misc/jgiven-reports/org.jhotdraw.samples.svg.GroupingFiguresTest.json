@@ -14,34 +14,50 @@
           "caseNr": 1,
           "steps": [
             {
-              "name": "an ellipse",
+              "name": "a figure",
               "words": [
                 {
                   "value": "Given",
                   "isIntroWord": true
                 },
                 {
-                  "value": "an ellipse"
+                  "value": "a figure"
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 289825100,
+              "durationInNanos": 674479500,
               "depth": 0,
               "parentFailed": false
             },
             {
-              "name": "an rectangle",
+              "name": "a figure",
               "words": [
                 {
                   "value": "and",
                   "isIntroWord": true
                 },
                 {
-                  "value": "an rectangle"
+                  "value": "a figure"
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 3824400,
+              "durationInNanos": 8309700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figures are selected",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figures are selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 255050600,
               "depth": 0,
               "parentFailed": false
             },
@@ -49,7 +65,7 @@
               "name": "the figures are grouped",
               "words": [
                 {
-                  "value": "When",
+                  "value": "and",
                   "isIntroWord": true
                 },
                 {
@@ -57,23 +73,23 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 508100,
+              "durationInNanos": 28442900,
               "depth": 0,
               "parentFailed": false
             },
             {
-              "name": "some outcome",
+              "name": "a group is created",
               "words": [
                 {
                   "value": "Then",
                   "isIntroWord": true
                 },
                 {
-                  "value": "some outcome"
+                  "value": "a group is created"
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 499400,
+              "durationInNanos": 3662600,
               "depth": 0,
               "parentFailed": false
             }
@@ -81,11 +97,11 @@
           "explicitArguments": [],
           "derivedArguments": [],
           "status": "SUCCESS",
-          "durationInNanos": 328213700
+          "durationInNanos": 1002899700
         }
       ],
       "casesAsTable": false,
-      "durationInNanos": 328213700
+      "durationInNanos": 1002899700
     }
   ],
   "tagMap": {}

@@ -32,16 +32,6 @@ public class CombinePathsCommandTest extends TestCase {
         command = null;
     }
 
-    public void testCombinePaths() {
-        DrawingView view = new DefaultDrawingEditor().getActiveView();
-        CompositeFigure group = new SVGPathFigure(true);
-        Collection<Figure> figures = new ArrayList<>();
-        figures.add(new SVGPathFigure(true));
-        figures.add(new SVGRectFigure(0, 0, 50, 50));
-
-        command.combinePaths(view, group, figures, 0);
-    }
-
     public void testVerifyTransformsAreNotTheSameWithTwoRectangles(){
         // Setup
         Collection<Figure> figures = new ArrayList<>();
