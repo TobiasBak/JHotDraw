@@ -2,9 +2,7 @@ package org.jhotdraw.samples.svg.steps;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.annotation.ScenarioState;
-import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.Figure;

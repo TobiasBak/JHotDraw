@@ -2,7 +2,6 @@ package org.jhotdraw.samples.svg.steps;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.DrawingView;
 
 public class ThenSplit extends Stage<ThenSplit> {
