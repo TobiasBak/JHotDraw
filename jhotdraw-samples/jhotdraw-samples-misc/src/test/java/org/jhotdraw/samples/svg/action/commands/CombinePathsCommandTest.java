@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.DefaultDrawingEditor;
 import org.jhotdraw.draw.DrawingView;
-import org.jhotdraw.draw.figure.BezierFigure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.samples.svg.figures.SVGBezierFigure;

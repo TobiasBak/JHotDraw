@@ -39,7 +39,7 @@ public class SplitPathsCommand implements PathCommand {
         }
     }
 
-    public void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
+    void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         view.clearSelection();
         group.basicRemoveAllChildren();
         view.getDrawing().remove(group);
@@ -53,18 +53,22 @@ public class SplitPathsCommand implements PathCommand {
         view.addToSelection(ungroupedPaths);
     }
 
-    private void addGroupedPathsToUngroupedPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
+    void addGroupedPathsToUngroupedPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         Iterator<Figure> groupedFigures = new LinkedList<Figure>(group.getChildren()).iterator();
         for (int i = 0; i < ungroupedPaths.size(); i++) {
             CompositeFigure path = (CompositeFigure) ungroupedPaths.get(i);
             view.getDrawing().add(ungroupedPathsIndices[i], path);
             path.willChange();
-            for (int j = 0; j < ungroupedPathsChildCounts[i]; j++) {
-                Figure child = groupedFigures.next();
-                child.willChange();
-                path.basicAdd(child);
-            }
+            addGroupChildrenToPath(path, groupedFigures, ungroupedPathsChildCounts[i]);
             path.changed();
+        }
+    }
+
+    void addGroupChildrenToPath(CompositeFigure path, Iterator<Figure> groupedFigures, int ungroupedPathsChildCount) {
+        for (int j = 0; j < ungroupedPathsChildCount; j++) {
+            Figure child = groupedFigures.next();
+            child.willChange();
+            path.basicAdd(child);
         }
     }
 }
