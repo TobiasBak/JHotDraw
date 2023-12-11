@@ -25,14 +25,7 @@ public class WhenSplit extends Stage<WhenSplit> {
         final CompositeFigure group = (CompositeFigure) view.getSelectedFigures().iterator().next();
         final LinkedList<Figure> ungroupedPaths = new LinkedList<Figure>();
 
-        System.out.println("Group: " + group);
-        System.out.println("Group children figures: " + group.getChildren());
-        System.out.println("View drawing: " + view.getDrawing());
-        System.out.println("View drawing children: " + view.getDrawing().getChildren());
-
         splitCommand.execute(view, group, ungroupedPaths);
-        System.out.println("View drawing after split: " + view.getDrawing());
-        System.out.println("View drawing children after split: " + view.getDrawing().getChildren());
 
         return self();
     }
@@ -40,10 +33,6 @@ public class WhenSplit extends Stage<WhenSplit> {
     public WhenSplit the_group_is_selected() {
         view.selectAll();
 
-        System.out.println("View selected figures: " + view.getSelectedFigures());
-
         return self();
     }
-
-
 }
