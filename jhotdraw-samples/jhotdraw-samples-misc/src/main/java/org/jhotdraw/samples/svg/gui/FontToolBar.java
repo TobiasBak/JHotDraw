@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
@@ -47,9 +48,11 @@ public class FontToolBar extends AbstractToolBar {
     private static final long serialVersionUID = 1L;
     private SelectionComponentDisplayer displayer;
 
+
     /**
      * Creates new instance.
      */
+    @FeatureEntryPoint(value = "FontToolBar")
     public FontToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("font.toolbar"));
@@ -58,6 +61,7 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint(value = "FontToolBar")
     public void setEditor(DrawingEditor newValue) {
         if (displayer != null) {
             displayer.dispose();
@@ -104,6 +108,7 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint(value = "FontToolBar")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {
@@ -332,15 +337,19 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint(value = "FontToolBar")
     protected String getID() {
         return "font";
     }
 
     @Override
+    @FeatureEntryPoint(value = "FontToolBar")
     protected int getDefaultDisclosureState() {
         return 1;
     }
 
+
+    @FeatureEntryPoint(value = "Shenanigans")
     /**
      * This method is called from within the constructor to
      * initialize the form.

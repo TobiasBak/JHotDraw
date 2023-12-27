@@ -15,6 +15,8 @@ import java.util.Iterator;
 import javax.swing.JPopupMenu;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoableEdit;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.DrawingEditor;
@@ -61,6 +63,7 @@ public class FontChooserHandler extends AbstractSelectedAction
         popupMenu.setVisible(false);
     }
 
+    @FeatureEntryPoint(value = "FontToolBarDeps")
     protected void applySelectedFontToFigures() {
         final ArrayList<Figure> selectedFigures = new ArrayList<>(getView().getSelectedFigures());
         final ArrayList<Object> restoreData = new ArrayList<>(selectedFigures.size());
