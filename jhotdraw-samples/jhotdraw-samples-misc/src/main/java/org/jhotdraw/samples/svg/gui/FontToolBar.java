@@ -64,14 +64,14 @@ public class FontToolBar extends AbstractToolBar {
 
     @Override
     @FeatureEntryPoint(value = "FontToolBar")
-    public void setEditor(DrawingEditor newValue) {
+    public void setEditor(DrawingEditor newEditor) {
         if (displayer != null) {
             displayer.dispose();
             displayer = null;
         }
-        super.setEditor(newValue);
+        super.setEditor(newEditor);
 
-        if (newValue == null) {
+        if (newEditor == null) {
             return;
         }
 

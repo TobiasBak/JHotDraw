@@ -4,7 +4,6 @@ public enum ExpansionState {
     UNKNOWN, HALF, FULL;
 
     public static ExpansionState getExpansionState(int state) {
-        System.out.println("expansion state");
         switch (state) {
             case 1:
                 return HALF;
