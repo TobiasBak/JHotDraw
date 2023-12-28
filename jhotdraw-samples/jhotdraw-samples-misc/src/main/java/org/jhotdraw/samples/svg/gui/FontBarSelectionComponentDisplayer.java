@@ -27,8 +27,8 @@ public class FontBarSelectionComponentDisplayer extends SelectionComponentDispla
         }
 
         boolean visible = editorHasActiveView()
-                && (visibleBecauseOfTool()
-                || selectedFiguresContainsText(editor.getActiveView().getSelectedFigures()));
+                && (visibleBecauseOfTool() || selectedFiguresContainsText(editor.getActiveView().getSelectedFigures()));
+
         component.setVisible(visible);
 
         // The following is needed to trick BoxLayout
@@ -55,10 +55,8 @@ public class FontBarSelectionComponentDisplayer extends SelectionComponentDispla
             if (f instanceof TextHolderFigure) {
                 return true;
             }
-            if (f instanceof CompositeFigure) {
-                if (selectedFiguresContainsText(((CompositeFigure) f).getChildren())) {
-                    return true;
-                }
+            if (f instanceof CompositeFigure && selectedFiguresContainsText(((CompositeFigure) f).getChildren())) {
+                return true;
             }
         }
         return false;
