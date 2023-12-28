@@ -70,43 +70,12 @@ public class FontToolBar extends AbstractToolBar {
             displayer = null;
         }
         super.setEditor(newValue);
-        if (newValue != null) {
-            displayer = new SelectionComponentDisplayer(editor, this) {
-                @Override
-                public void updateVisibility() {
-                    boolean newValue = editor != null
-                            && editor.getActiveView() != null
-                            && (isVisibleIfCreationTool && ((editor.getTool() instanceof TextCreationTool) || editor.getTool() instanceof TextAreaCreationTool)
-                            || containsTextHolderFigure(editor.getActiveView().getSelectedFigures()));
-                    JComponent component = getComponent();
-                    if (component == null) {
-                        dispose();
-                        return;
-                    }
-                    component.setVisible(newValue);
-                    // The following is needed to trick BoxLayout
-                    if (newValue) {
-                        component.setPreferredSize(null);
-                    } else {
-                        component.setPreferredSize(new Dimension(0, 0));
-                    }
-                    component.revalidate();
-                }
 
-                private boolean containsTextHolderFigure(Collection<Figure> figures) {
-                    for (Figure f : figures) {
-                        if (f instanceof TextHolderFigure) {
-                            return true;
-                        } else if (f instanceof CompositeFigure) {
-                            if (containsTextHolderFigure(((CompositeFigure) f).getChildren())) {
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
-                }
-            };
+        if (newValue == null) {
+            return;
         }
+
+        displayer = new FontBarSelectionComponentDisplayer(editor, this);
     }
 
     @Override
@@ -119,20 +88,24 @@ public class FontToolBar extends AbstractToolBar {
             return basePanel;
         }
 
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
+        int textFieldColumnWidth;
+        int textFieldGridWidth;
 
         ExpansionState expansionState = ExpansionState.getExpansionState(state);
         switch (expansionState) {
             case HALF:
-                addFontChooserElements(2, 2, labels, basePanel);
+                textFieldGridWidth = 2;
+                textFieldColumnWidth = 2;
                 break;
             case FULL:
-                addFontChooserElements(12, 3, labels, basePanel);
+                textFieldGridWidth = 3;
+                textFieldColumnWidth = 12;
                 break;
             default:
-                basePanel = null;
-                break;
+                return null;
         }
+
+        addFontChooserElements(textFieldColumnWidth, textFieldGridWidth, basePanel);
 
         return basePanel;
     }
@@ -145,7 +118,9 @@ public class FontToolBar extends AbstractToolBar {
         return p;
     }
 
-    private void addFontChooserElements(int textFieldColumnWidth, int textFieldGridWidth, ResourceBundleUtil labels, JPanel p) {
+    private void addFontChooserElements(int textFieldColumnWidth, int textFieldGridWidth, JPanel p) {
+        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
+
         addTextFieldForFontName(textFieldColumnWidth, textFieldGridWidth, labels, p);
 
         addFontChooserButton(labels, p);
@@ -158,9 +133,21 @@ public class FontToolBar extends AbstractToolBar {
         addPanel2(p, p2);
 
         // Font style buttons
-        addButton(ButtonFactory.createFontStyleBoldButton(editor, labels, disposables), "first", null, p);
-        addButton(ButtonFactory.createFontStyleItalicButton(editor, labels, disposables), "middle", null, p);
-        addButton(ButtonFactory.createFontStyleUnderlineButton(editor, labels, disposables), "last", GridBagConstraints.WEST, p);
+        JButton boldButton = ButtonFactory.createFontStyleBoldButton(editor, labels, disposables);
+        addButton(boldButton, "first", null, p);
+
+        JButton italicButton = ButtonFactory.createFontStyleItalicButton(editor, labels, disposables);
+        addButton(italicButton, "middle", null, p);
+
+        JButton underlineButton = ButtonFactory.createFontStyleUnderlineButton(editor, labels, disposables);
+        addButton(underlineButton, "last", GridBagConstraints.WEST, p);
+    }
+
+    private void addControlElementsForFontSize(ResourceBundleUtil labels, JPanel p2) {
+        addFontSizeField(labels, p2);
+
+        JAttributeSlider sizeSlider = createSizeSlider();
+        addPopupButtonForSizeSlider(sizeSlider, labels, p2);
     }
 
     private void addButton(JButton btn, String segmentPosition, Integer anchor, JPanel p) {
@@ -179,25 +166,12 @@ public class FontToolBar extends AbstractToolBar {
         JAttributeTextField<Font> faceField = createFontFaceField(columnWidth, labels);
         disposables.add(new FigureAttributeEditorHandler<>(FONT_FACE, faceField, editor));
 
-        p.add(faceField, createConstraintsForFontField(gridWidth));
+        p.add(faceField, createGridBagConstraint(gridWidth, 0, 0, null, null, null));
     }
 
     private static void addPanel2(JPanel p, JPanel p2) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.insets = new Insets(0, 0, 0, 0);
+        GridBagConstraints gbc = createGridBagConstraint(2, 0, 1, null, null, GridBagConstraints.BOTH);
         p.add(p2, gbc);
-    }
-
-    private void addControlElementsForFontSize(ResourceBundleUtil labels, JPanel p2) {
-        addFontSizeField(labels, p2);
-
-        JAttributeSlider sizeSlider = createSizeSlider();
-        addPopupButtonForSizeSlider(sizeSlider, labels, p2);
     }
 
     private void addPopupButtonForSizeSlider(JAttributeSlider sizeSlider, ResourceBundleUtil labels, JPanel p2) {
@@ -207,11 +181,7 @@ public class FontToolBar extends AbstractToolBar {
         sizePopupButton.setUI((PaletteButtonUI) PaletteButtonUI.createUI(sizePopupButton));
         sizePopupButton.setPopupAnchor(SOUTH_EAST);
         disposables.add(new SelectionComponentRepainter(editor, sizePopupButton));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.insets = new Insets(3, 0, 0, 0);
+        GridBagConstraints gbc = createGridBagConstraint(1, 2, 1, 3, null, GridBagConstraints.NONE);
         p2.add(sizePopupButton, gbc);
     }
 
@@ -232,15 +202,10 @@ public class FontToolBar extends AbstractToolBar {
         sizeField.setUI((PaletteFormattedTextFieldUI) PaletteFormattedTextFieldUI.createUI(sizeField));
         sizeField.setFormatterFactory(JavaNumberFormatter.createFormatterFactory(0d, 1000d, 1d));
         sizeField.setHorizontalAlignment(JTextField.LEADING);
-        disposables.add(new FigureAttributeEditorHandler<Double>(FONT_SIZE, sizeField, editor));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.insets = new Insets(3, 0, 0, 0);
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.gridwidth = 2;
+        disposables.add(new FigureAttributeEditorHandler<>(FONT_SIZE, sizeField, editor));
+
+        GridBagConstraints gbc = createGridBagConstraint(2, 0, 1, 3, null, GridBagConstraints.HORIZONTAL);
         gbc.weightx = 1f;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         p2.add(sizeField, gbc);
     }
 
@@ -255,13 +220,25 @@ public class FontToolBar extends AbstractToolBar {
         p.add(btn, gbc);
     }
 
-    private static GridBagConstraints createConstraintsForFontField(int gridWidth) {
+    private static GridBagConstraints createGridBagConstraint(int gridWidth, int gridX, int gridY, Integer topInset, Integer anchor, Integer fill) {
+        if (topInset == null) {
+            topInset = 0;
+        }
+
+        if (anchor == null) {
+            anchor = GridBagConstraints.FIRST_LINE_START;
+        }
+
+        if (fill == null) {
+            fill = GridBagConstraints.HORIZONTAL;
+        }
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = gridX;
+        gbc.gridy = gridY;
+        gbc.insets = new Insets(topInset, 0, 0, 0);
+        gbc.anchor = anchor;
+        gbc.fill = fill;
         gbc.gridwidth = gridWidth;
         return gbc;
     }
