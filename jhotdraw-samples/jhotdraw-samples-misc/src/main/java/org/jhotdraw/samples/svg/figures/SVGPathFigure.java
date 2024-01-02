@@ -222,11 +222,12 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
         if (isClosed || get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
             double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0);
+            GrowStroke gs = new GrowStroke(
+                    grow,
+                    (AttributeKeys.getStrokeTotalWidth(this, 1.0) * get(STROKE_MITER_LIMIT))
+            );
 
-            if (getPath().contains(p)) return true;
-            GrowStroke gs = new GrowStroke(grow,
-                    (AttributeKeys.getStrokeTotalWidth(this, 1.0)
-                    * get(STROKE_MITER_LIMIT)));
+            if (getPath().contains(p)) return true;;
             if (gs.createStrokedShape(getPath()).contains(p)) return true;
             if (isClosed) return false;
         }
