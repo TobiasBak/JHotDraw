@@ -50,7 +50,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     private transient Path2D.Double cachedPath;
 
     private transient Shape cachedHitShape;
-    private static final boolean DEBUG = false;
 
     /**
      * Creates a new instance.
