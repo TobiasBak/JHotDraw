@@ -10,18 +10,13 @@ public class SVGPathFigureTest extends TestCase {
     public void testDrawBufferedImage() {
     }
 
-    public void testDrawFigure() {
+    public void testContains() {
     }
 
-    public void testDrawChildren() {
+    public void testDrawFigure() {
     }
 
     public void testGetDrawingArea() {
     }
 
-    public void testContains() {
-    }
-
-    public void testTestClone() {
-    }
 }
