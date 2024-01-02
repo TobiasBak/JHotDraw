@@ -227,7 +227,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                     (AttributeKeys.getStrokeTotalWidth(this, 1.0) * get(STROKE_MITER_LIMIT))
             );
 
-            if (getPath().contains(p)) return true;;
+            if (getPath().contains(p)) return true;
             if (gs.createStrokedShape(getPath()).contains(p)) return true;
             if (isClosed) return false;
         }
