@@ -1,6 +1,5 @@
 package org.jhotdraw.samples.svg.gui;
 
-import org.jetbrains.annotations.NotNull;
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.event.SelectionComponentDisplayer;
 import org.jhotdraw.draw.figure.CompositeFigure;
@@ -14,7 +13,7 @@ import java.awt.*;
 import java.util.Collection;
 
 public class FontBarSelectionComponentDisplayer extends SelectionComponentDisplayer {
-    public FontBarSelectionComponentDisplayer(@NotNull DrawingEditor editor, JComponent component) {
+    public FontBarSelectionComponentDisplayer(DrawingEditor editor, JComponent component) {
         super(editor, component);
     }
 
