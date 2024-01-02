@@ -216,9 +216,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
             }
         }
 
-        if (isClosed && get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) {
-            return getHitShape().contains(p);
-        }
+        if (isClosed && get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) return getHitShape().contains(p);
 
         if (isClosed || get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
             double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0);
