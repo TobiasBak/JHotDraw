@@ -55,7 +55,6 @@ public class PathTool extends BezierTool {
         return f;
     }
     @FeatureEntryPoint(value = "FinishPath")
-
     @Override
     protected void finishCreation(BezierFigure createdFigure, DrawingView creationView) {
         if (DEBUG) {
