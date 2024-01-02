@@ -204,6 +204,9 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public boolean contains(Point2D.Double p) {
+        double tolerance = Math.max(2f, AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2d);
+        boolean isClosed = getChild(0).get(PATH_CLOSED);
+
         getPath();
         if (get(TRANSFORM) != null) {
             try {
@@ -212,28 +215,22 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                 ex.printStackTrace();
             }
         }
-        boolean isClosed = getChild(0).get(PATH_CLOSED);
+
         if (isClosed && get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) {
             return getHitShape().contains(p);
         }
 
-        double tolerance = Math.max(2f, AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2d);
         if (isClosed || get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
-            if (getPath().contains(p)) {
-                return true;
-            }
             double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0);
+
+            if (getPath().contains(p)) return true;
             GrowStroke gs = new GrowStroke(grow,
                     (AttributeKeys.getStrokeTotalWidth(this, 1.0)
                     * get(STROKE_MITER_LIMIT)));
-            if (gs.createStrokedShape(getPath()).contains(p)) {
-                return true;
-            } else {
-                if (isClosed) {
-                    return false;
-                }
-            }
+            if (gs.createStrokedShape(getPath()).contains(p)) return true;
+            if (isClosed) return false;
         }
+
         return Shapes.outlineContains(getPath(), p, tolerance);
     }
 
@@ -251,12 +248,12 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     @Override
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null || (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
-            if (get(TRANSFORM) == null) {
-                TRANSFORM.setClone(this, tx);
-            } else {
+            if (get(TRANSFORM) != null) {
                 AffineTransform t = TRANSFORM.getClone(this);
                 t.preConcatenate(tx);
                 set(TRANSFORM, t);
+            } else {
+                TRANSFORM.setClone(this, tx);
             }
         } else {
             for (Figure f : getChildren()) {
