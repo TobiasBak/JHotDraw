@@ -86,7 +86,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         }
     }
 
-    private void drawBufferedImage(Graphics2D g, Rectangle2D.Double drawingArea, float opacity) {
+    public void drawBufferedImage(Graphics2D g, Rectangle2D.Double drawingArea, float opacity) {
         BufferedImage buf = new BufferedImage(
                 Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
                 Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
