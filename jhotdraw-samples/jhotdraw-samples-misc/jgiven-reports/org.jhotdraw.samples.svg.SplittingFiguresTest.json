@@ -1,0 +1,92 @@
+{
+  "className": "org.jhotdraw.samples.svg.SplittingFiguresTest",
+  "name": "Splitting Figures",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.SplittingFiguresTest",
+      "testMethodName": "testSplitting",
+      "description": "Test splitting",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a group",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a group"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1196117700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the group is selected",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the group is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 3060000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the group is split",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the group is split"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 10636500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the group is split",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the group is split"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2727100,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 1262873100
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 1262873100
+    }
+  ],
+  "tagMap": {}
+}

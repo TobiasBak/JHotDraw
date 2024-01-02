@@ -1,0 +1,108 @@
+{
+  "className": "org.jhotdraw.samples.svg.GroupingFiguresTest",
+  "name": "Grouping Figures",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.GroupingFiguresTest",
+      "testMethodName": "testGrouping",
+      "description": "Test grouping",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a figure",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a figure"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 883523800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a figure",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a figure"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 9952700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figures are selected",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figures are selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 198925800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figures are grouped",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figures are grouped"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 20982500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a group is created",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a group is created"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2490700,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 1153341600
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 1153341600
+    }
+  ],
+  "tagMap": {}
+}
