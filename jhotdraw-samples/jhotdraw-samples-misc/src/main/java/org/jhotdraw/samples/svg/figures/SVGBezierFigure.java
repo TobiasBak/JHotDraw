@@ -39,9 +39,6 @@ public class SVGBezierFigure extends BezierFigure {
     private static final long serialVersionUID = 1L;
     private transient Rectangle2D.Double cachedDrawingArea;
 
-    /**
-     * Creates a new instance.
-     */
     @FeatureEntryPoint(value = "Bezier Figure")
     public SVGBezierFigure() {
         this(false);
@@ -137,6 +134,9 @@ public class SVGBezierFigure extends BezierFigure {
     @Override
     public Rectangle2D.Double getDrawingArea() {
         if (cachedDrawingArea == null) {
+            double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);
+            double width = strokeTotalWidth / 2d;
+
             if (get(TRANSFORM) == null) {
                 cachedDrawingArea = path.getBounds2D();
             } else {
@@ -144,8 +144,7 @@ public class SVGBezierFigure extends BezierFigure {
                 p2.transform(get(TRANSFORM));
                 cachedDrawingArea = p2.getBounds2D();
             }
-            double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);
-            double width = strokeTotalWidth / 2d;
+
             if (get(STROKE_JOIN) == BasicStroke.JOIN_MITER) {
                 width *= get(STROKE_MITER_LIMIT);
             } else if (get(STROKE_CAP) != BasicStroke.CAP_BUTT) {

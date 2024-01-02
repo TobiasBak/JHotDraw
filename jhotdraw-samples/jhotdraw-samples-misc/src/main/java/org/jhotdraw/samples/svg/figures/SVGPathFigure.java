@@ -51,9 +51,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     private transient Shape cachedHitShape;
 
-    /**
-     * Creates a new instance.
-     */
     @FeatureEntryPoint(value = "Path Figure")
     public SVGPathFigure() {
         add(new SVGBezierFigure());
