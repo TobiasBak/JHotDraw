@@ -489,16 +489,10 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         willChange();
         AffineTransform tx = get(TRANSFORM);
         if (tx != null) {
-            for (Figure child : getChildren()) {
-                ((SVGBezierFigure) child).flattenTransform();
-            }
+            getChildren().forEach(child -> ((SVGBezierFigure) child).flattenTransform());
         }
-        if (get(FILL_GRADIENT) != null) {
-            get(FILL_GRADIENT).transform(tx);
-        }
-        if (get(STROKE_GRADIENT) != null) {
-            get(STROKE_GRADIENT).transform(tx);
-        }
+        if (get(FILL_GRADIENT) != null) get(FILL_GRADIENT).transform(tx);
+        if (get(STROKE_GRADIENT) != null) get(STROKE_GRADIENT).transform(tx);
         set(TRANSFORM, null);
         changed();
     }
