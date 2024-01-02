@@ -214,7 +214,9 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
             }
         }
 
-        if (isClosed && get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) return getHitShape().contains(p);
+        if (isClosed && get(FILL_COLOR) == null && get(FILL_GRADIENT) == null) {
+            return getHitShape().contains(p);
+        }
 
         if (isClosed || get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
             double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0);
@@ -223,9 +225,15 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                     (AttributeKeys.getStrokeTotalWidth(this, 1.0) * get(STROKE_MITER_LIMIT))
             );
 
-            if (getPath().contains(p)) return true;
-            if (gs.createStrokedShape(getPath()).contains(p)) return true;
-            if (isClosed) return false;
+            if (getPath().contains(p)) {
+                return true;
+            }
+            if (gs.createStrokedShape(getPath()).contains(p)) {
+                return true;
+            }
+            if (isClosed) {
+                return false;
+            }
         }
 
         return Shapes.outlineContains(getPath(), p, tolerance);
@@ -489,8 +497,12 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         if (tx != null) {
             getChildren().forEach(child -> ((SVGBezierFigure) child).flattenTransform());
         }
-        if (get(FILL_GRADIENT) != null) get(FILL_GRADIENT).transform(tx);
-        if (get(STROKE_GRADIENT) != null) get(STROKE_GRADIENT).transform(tx);
+        if (get(FILL_GRADIENT) != null) {
+            get(FILL_GRADIENT).transform(tx);
+        }
+        if (get(STROKE_GRADIENT) != null) {
+            get(STROKE_GRADIENT).transform(tx);
+        }
         set(TRANSFORM, null);
         changed();
     }
