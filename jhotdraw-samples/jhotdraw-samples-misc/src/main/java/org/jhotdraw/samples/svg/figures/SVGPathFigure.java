@@ -81,26 +81,30 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                     Rectangle2D.intersect(drawingArea, clipBounds, drawingArea);
                 }
                 if (!drawingArea.isEmpty()) {
-                    BufferedImage buf = new BufferedImage(
-                            Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
-                            Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
-                            BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D gr = buf.createGraphics();
-                    gr.scale(g.getTransform().getScaleX(), g.getTransform().getScaleY());
-                    gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
-                    gr.setRenderingHints(g.getRenderingHints());
-                    drawFigure(gr);
-                    gr.dispose();
-                    Composite savedComposite = g.getComposite();
-                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
-                    g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
-                            2 + (int) drawingArea.width, 2 + (int) drawingArea.height, null);
-                    g.setComposite(savedComposite);
+                    drawBufferedImage(g, drawingArea, (float) opacity);
                 }
             } else {
                 drawFigure(g);
             }
         }
+    }
+
+    private void drawBufferedImage(Graphics2D g, Rectangle2D.Double drawingArea, float opacity) {
+        BufferedImage buf = new BufferedImage(
+                Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
+                Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gr = buf.createGraphics();
+        gr.scale(g.getTransform().getScaleX(), g.getTransform().getScaleY());
+        gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
+        gr.setRenderingHints(g.getRenderingHints());
+        drawFigure(gr);
+        gr.dispose();
+        Composite savedComposite = g.getComposite();
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+        g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
+                2 + (int) drawingArea.width, 2 + (int) drawingArea.height, null);
+        g.setComposite(savedComposite);
     }
 
     @Override
@@ -246,8 +250,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
     @Override
     public void transform(AffineTransform tx) {
-        if (get(TRANSFORM) != null
-                || (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
+        if (get(TRANSFORM) != null || (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
             if (get(TRANSFORM) == null) {
                 TRANSFORM.setClone(this, tx);
             } else {
@@ -259,14 +262,12 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
             for (Figure f : getChildren()) {
                 f.transform(tx);
             }
-            if (get(FILL_GRADIENT) != null
-                    && !get(FILL_GRADIENT).isRelativeToFigureBounds()) {
+            if (get(FILL_GRADIENT) != null && !get(FILL_GRADIENT).isRelativeToFigureBounds()) {
                 Gradient g = FILL_GRADIENT.getClone(this);
                 g.transform(tx);
                 set(FILL_GRADIENT, g);
             }
-            if (get(STROKE_GRADIENT) != null
-                    && !get(STROKE_GRADIENT).isRelativeToFigureBounds()) {
+            if (get(STROKE_GRADIENT) != null && !get(STROKE_GRADIENT).isRelativeToFigureBounds()) {
                 Gradient g = STROKE_GRADIENT.getClone(this);
                 g.transform(tx);
                 set(STROKE_GRADIENT, g);
