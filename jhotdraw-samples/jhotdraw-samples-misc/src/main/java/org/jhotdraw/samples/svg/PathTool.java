@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.BezierFigure;
 import java.util.*;
 import org.jhotdraw.draw.*;
@@ -30,24 +31,19 @@ public class PathTool extends BezierTool {
     /**
      * The path prototype for new figures.
      */
-    private SVGPathFigure pathPrototype;
+    private final SVGPathFigure pathPrototype;
 
     /**
      * Creates a new instance.
      */
-    public PathTool(SVGPathFigure pathPrototype, SVGBezierFigure bezierPrototype) {
-        this(pathPrototype, bezierPrototype, null);
-    }
-
-    /**
-     * Creates a new instance.
-     */
+    @FeatureEntryPoint(value = "Creates the scribble tool")
     public PathTool(SVGPathFigure pathPrototype, SVGBezierFigure bezierPrototype, Map<AttributeKey<?>, Object> attributes) {
         super(bezierPrototype, attributes);
         this.pathPrototype = pathPrototype;
     }
 
     @SuppressWarnings("unchecked")
+    @FeatureEntryPoint(value = "CreatePath")
     protected SVGPathFigure createPath() {
         SVGPathFigure f = pathPrototype.clone();
         getEditor().applyDefaultAttributesTo(f);
@@ -58,7 +54,7 @@ public class PathTool extends BezierTool {
         }
         return f;
     }
-
+    @FeatureEntryPoint(value = "FinishPath")
     @Override
     protected void finishCreation(BezierFigure createdFigure, DrawingView creationView) {
         if (DEBUG) {

@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.BezierFigure;
 import java.awt.BasicStroke;
 import java.awt.event.*;
@@ -38,13 +39,12 @@ public class SVGBezierFigure extends BezierFigure {
     private static final long serialVersionUID = 1L;
     private transient Rectangle2D.Double cachedDrawingArea;
 
-    /**
-     * Creates a new instance.
-     */
+    @FeatureEntryPoint(value = "Bezier Figure")
     public SVGBezierFigure() {
         this(false);
     }
 
+    @FeatureEntryPoint(value = "Bezier Figure")
     public SVGBezierFigure(boolean isClosed) {
         super(isClosed);
         set(UNCLOSED_PATH_FILLED, true);
@@ -69,7 +69,7 @@ public class SVGBezierFigure extends BezierFigure {
 
     @Override
     public boolean handleMouseClick(Point2D.Double p, MouseEvent evt, DrawingView view) {
-        if (evt.getClickCount() == 2/* && view.getHandleDetailLevel() == 0*/) {
+        if (evt.getClickCount() == 2) {
             willChange();
             // Apply inverse of transform to point
             if (get(TRANSFORM) != null) {
@@ -134,6 +134,9 @@ public class SVGBezierFigure extends BezierFigure {
     @Override
     public Rectangle2D.Double getDrawingArea() {
         if (cachedDrawingArea == null) {
+            double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);
+            double width = strokeTotalWidth / 2d;
+
             if (get(TRANSFORM) == null) {
                 cachedDrawingArea = path.getBounds2D();
             } else {
@@ -141,8 +144,7 @@ public class SVGBezierFigure extends BezierFigure {
                 p2.transform(get(TRANSFORM));
                 cachedDrawingArea = p2.getBounds2D();
             }
-            double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);
-            double width = strokeTotalWidth / 2d;
+
             if (get(STROKE_JOIN) == BasicStroke.JOIN_MITER) {
                 width *= get(STROKE_MITER_LIMIT);
             } else if (get(STROKE_CAP) != BasicStroke.CAP_BUTT) {
