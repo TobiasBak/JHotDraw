@@ -35,4 +35,26 @@ public class WhenChanging extends Stage<WhenChanging> {
 
         return self();
     }
+
+    public WhenChanging an_invalid_font_is_set_in_the_input_field() {
+        fontName = textAreaFigure.getFont().getFamily();
+
+
+        JTextField fontNameTextField =  getAttributeTextField(panel, "font");
+
+        fontNameTextField.setText("invalid font name");
+
+        return self();
+    }
+
+    public WhenChanging the_existing_font_name_is_written_in_the_field() {
+        fontName = textAreaFigure.getFont().getFamily();
+
+
+        JTextField fontNameTextField =  getAttributeTextField(panel, "font");
+
+        fontNameTextField.setText(fontName);
+
+        return self();
+    }
 }

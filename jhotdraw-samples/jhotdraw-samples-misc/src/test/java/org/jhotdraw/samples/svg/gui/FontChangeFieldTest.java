@@ -14,4 +14,16 @@ public class FontChangeFieldTest extends ScenarioTest<GivenDrawing, WhenChanging
         when().a_new_font_is_set_in_the_field();
         then().the_font_is_changed_in_the_drawing();
     }
+    @Test
+    public void fontNameNotChangedUsingInputField() {
+        given().a_drawing().and().some_selected_text();
+        when().an_invalid_font_is_set_in_the_input_field();
+        then().the_font_is_not_changed_in_the_drawing();
+    }
+    @Test
+    public void noFontNameChange() {
+        given().a_drawing().and().some_selected_text();
+        when().the_existing_font_name_is_written_in_the_field();
+        then().the_font_is_not_changed_in_the_drawing();
+    }
 }
