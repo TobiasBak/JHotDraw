@@ -12,6 +12,9 @@ public class ThenChanged extends Stage<ThenChanged> {
     TextAreaFigure textAreaFigure;
 
     public ThenChanged the_font_is_changed_in_the_drawing() {
+        System.out.println("Font name: " + textAreaFigure.getFont().getFamily());
+        System.out.println("Expected font name: " + fontName);
+
         assert textAreaFigure.getFont().getFamily().equals(fontName);
 
         return self();

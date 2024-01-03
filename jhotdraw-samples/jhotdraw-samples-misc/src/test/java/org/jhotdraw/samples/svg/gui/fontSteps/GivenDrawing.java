@@ -33,7 +33,6 @@ public class GivenDrawing extends Stage<GivenDrawing> {
     }
 
     public GivenDrawing some_selected_text() {
-        drawingPanel.setEditor(new DefaultDrawingEditor());
         textAreaFigure = addSelectedTextAreaToDrawing(drawingPanel);
 
         return self();

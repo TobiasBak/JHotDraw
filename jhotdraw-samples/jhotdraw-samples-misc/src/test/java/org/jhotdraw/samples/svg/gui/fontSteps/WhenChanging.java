@@ -22,7 +22,7 @@ public class WhenChanging extends Stage<WhenChanging> {
     String fontName;
 
     public WhenChanging a_new_font_is_set_in_the_field() {
-        String fontName = textAreaFigure.getFont().getFamily();
+        fontName = textAreaFigure.getFont().getFamily();
         if (fontName.equals("Arial")) {
             fontName = "Times New Roman";
         } else {
