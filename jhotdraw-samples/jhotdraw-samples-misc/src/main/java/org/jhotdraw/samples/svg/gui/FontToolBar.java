@@ -8,36 +8,29 @@
 package org.jhotdraw.samples.svg.gui;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import org.jhotdraw.gui.action.ButtonFactory;
-import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
-import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
-import org.jhotdraw.gui.plaf.palette.PaletteSliderUI;
-
-import java.awt.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.SliderUI;
-
-import static org.jhotdraw.draw.AttributeKeys.FONT_FACE;
-import static org.jhotdraw.draw.AttributeKeys.FONT_SIZE;
-
-import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.DrawingEditor;
-import org.jhotdraw.draw.figure.Figure;
-import org.jhotdraw.draw.figure.TextHolderFigure;
 import org.jhotdraw.draw.event.FigureAttributeEditorHandler;
 import org.jhotdraw.draw.event.SelectionComponentDisplayer;
 import org.jhotdraw.draw.event.SelectionComponentRepainter;
 import org.jhotdraw.draw.gui.JAttributeSlider;
 import org.jhotdraw.draw.gui.JAttributeTextField;
-import org.jhotdraw.draw.tool.TextAreaCreationTool;
-import org.jhotdraw.draw.tool.TextCreationTool;
-import org.jhotdraw.gui.JFontChooser;
-import org.jhotdraw.gui.JPopupButton;
 import org.jhotdraw.formatter.FontFormatter;
 import org.jhotdraw.formatter.JavaNumberFormatter;
-import org.jhotdraw.util.*;
+import org.jhotdraw.gui.JFontChooser;
+import org.jhotdraw.gui.JPopupButton;
+import org.jhotdraw.gui.action.ButtonFactory;
+import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
+import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
+import org.jhotdraw.gui.plaf.palette.PaletteSliderUI;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.SliderUI;
+import java.awt.*;
+
+import static org.jhotdraw.draw.AttributeKeys.FONT_FACE;
+import static org.jhotdraw.draw.AttributeKeys.FONT_SIZE;
 
 /**
  * StrokeToolBar.

@@ -4,7 +4,6 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import org.jhotdraw.draw.figure.TextAreaFigure;
-import org.jhotdraw.samples.svg.SVGDrawingPanel;
 
 import javax.swing.*;
 

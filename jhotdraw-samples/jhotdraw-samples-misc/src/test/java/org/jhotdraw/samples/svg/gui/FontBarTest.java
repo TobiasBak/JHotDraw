@@ -16,9 +16,9 @@ import static org.jhotdraw.draw.AttributeKeys.FONT_UNDERLINE;
 public class FontBarTest {
     private static FontToolBar fontToolBar;
     private static SVGDrawingPanel drawingPanel;
-    private static final String italicButtonToolTipText = "Italic";
-    private static final String underlineButtonText = "Underline";
-    private static final String boldButtonText = "Bold";
+    private static final String ITALIC_BUTTON_TOOL_TIP_TEXT = "Italic";
+    private static final String UNDERLINE_BUTTON_TEXT = "Underline";
+    private static final String BOLD_BUTTON_TEXT = "Bold";
 
 
     @BeforeAll
@@ -58,7 +58,7 @@ public class FontBarTest {
     @ValueSource(ints = {1, 2})
     public void testItalicButtonMakesTextItalic(int expansionState) {
         JPanel panel = (JPanel) fontToolBar.createDisclosedComponent(expansionState);
-        JButton italicButton = getButton(panel, italicButtonToolTipText);
+        JButton italicButton = getButton(panel, ITALIC_BUTTON_TOOL_TIP_TEXT);
 
         TextAreaFigure textAreaFigure = addSelectedTextAreaToDrawing();
 
@@ -75,7 +75,7 @@ public class FontBarTest {
     @ValueSource(ints = {1, 2})
     public void testUnderlineButtonMakesTextUnderlined(int expansionState) {
         JPanel panel = (JPanel) fontToolBar.createDisclosedComponent(expansionState);
-        JButton underlineButton = getButton(panel, underlineButtonText);
+        JButton underlineButton = getButton(panel, UNDERLINE_BUTTON_TEXT);
 
         TextAreaFigure textAreaFigure = addSelectedTextAreaToDrawing();
 
@@ -93,7 +93,7 @@ public class FontBarTest {
     @ValueSource(ints = {1, 2})
     public void testBoldButtonMakesTextBold(int expansionState) {
         JPanel panel = (JPanel) fontToolBar.createDisclosedComponent(expansionState);
-        JButton boldButton = getButton(panel, boldButtonText);
+        JButton boldButton = getButton(panel, BOLD_BUTTON_TEXT);
 
         TextAreaFigure textAreaFigure = addSelectedTextAreaToDrawing();
 
