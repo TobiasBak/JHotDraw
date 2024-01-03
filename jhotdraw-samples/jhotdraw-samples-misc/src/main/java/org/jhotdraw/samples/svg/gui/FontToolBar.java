@@ -80,7 +80,7 @@ public class FontToolBar extends AbstractToolBar {
 
     @Override
     @FeatureEntryPoint(value = "FontToolBar")
-    protected JComponent createDisclosedComponent(int state) {
+    public JComponent createDisclosedComponent(int state) {
         JPanel basePanel = createBasePanel();
 
         boolean noEditorSet = editor == null;

@@ -8,3 +8,5 @@ nb-configuration.xml
 
 # Gitignore file I just removed comment
 jhotdraw-samples/jhotdraw-samples-misc/pom.xml
+
+**/ajcore.*.txt

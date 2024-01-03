@@ -143,6 +143,10 @@ public class FontBarTest {
 
 
     private static TextAreaFigure addSelectedTextAreaToDrawing() {
+        return addSelectedTextAreaToDrawing(drawingPanel);
+    }
+
+    public static TextAreaFigure addSelectedTextAreaToDrawing(SVGDrawingPanel drawingPanel) {
         TextAreaFigure textAreaFigure = new TextAreaFigure();
         drawingPanel.getDrawing().add(textAreaFigure);
 
@@ -150,7 +154,7 @@ public class FontBarTest {
         return textAreaFigure;
     }
 
-    private static JAttributeTextField getAttributeTextField(JPanel panel, String toolTipText) {
+    public static JAttributeTextField getAttributeTextField(JPanel panel, String toolTipText) {
         for (Component c : panel.getComponents()) {
             if (!(c instanceof JAttributeTextField)) {
                 if (c instanceof JPanel) {
