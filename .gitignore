@@ -10,3 +10,4 @@ nb-configuration.xml
 jhotdraw-samples/jhotdraw-samples-misc/pom.xml
 
 **/ajcore.*.txt
+*ajcore*
