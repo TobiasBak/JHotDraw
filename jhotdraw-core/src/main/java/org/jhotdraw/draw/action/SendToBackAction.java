@@ -19,9 +19,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SendToBackAction extends AbstractSelectedAction {
-
-    private static final long serialVersionUID = 1L;
+public class SendToBackAction extends AbstractArrangeAction {
     public static final String ID = "edit.sendToBack";
 
     /**
@@ -29,45 +27,21 @@ public class SendToBackAction extends AbstractSelectedAction {
      */
     public SendToBackAction(DrawingEditor editor) {
         super(editor);
-        ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
-        updateEnabledState();
-    }
-
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {
-        final DrawingView view = getView();
-        final LinkedList<Figure> figures = new LinkedList<>(view.getSelectedFigures());
-        sendToBack(view, figures);
-        fireUndoableEditHappened(new AbstractUndoableEdit() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getPresentationName() {
-                ResourceBundleUtil labels
-                        = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                return labels.getTextProperty(ID);
-            }
-
-            @Override
-            public void redo() throws CannotRedoException {
-                super.redo();
-                SendToBackAction.sendToBack(view, figures);
-            }
-
-            @Override
-            public void undo() throws CannotUndoException {
-                super.undo();
-                BringToFrontAction.bringToFront(view, figures);
-            }
-        });
     }
 
     public static void sendToBack(DrawingView view, Collection<Figure> figures) {
         Drawing drawing = view.getDrawing();
-        for (Figure figure : figures) { // XXX Shouldn't the figures be sorted here back to front?
+        for (Figure figure : figures) {
             drawing.sendToBack(figure);
         }
+    }
+    public void order (DrawingView view, Collection < Figure > figures){
+        sendToBack(view, figures);
+    }
+    public void reverseOrder (DrawingView view, Collection < Figure > figures){
+        BringToFrontAction.bringToFront(view, figures);
+    }
+    protected String getID () {
+        return ID;
     }
 }
